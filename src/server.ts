@@ -14,7 +14,10 @@ export function makeApp(db: Db): core.Express {
   app.set("view engine", "njk");
 
   app.get("/", (request: Request, response: Response) => {
-    response.render("index")
+    const url = `https://fewlines.connect.prod.fewlines.tech/oauth/authorize?client_id=${process.env.CONNECT_CLIENT_ID}&response_type=code&redirect_uri=http://localhost:3000/oauth/callback&scope=email%20openid`;
+    response.render("index", {
+      connectLoginURL: url,
+    });
   });
 
   return app;
